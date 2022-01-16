@@ -1,12 +1,22 @@
+"""
+app script for BMI data collection.
+:define Functions for app configuration, data collection interface, calculation and database
+"""
+
 from flask import Flask, render_template, request
 from flask_sqlalchemy import _EngineDebuggingSignalEvents, SQLAlchemy
 from send_email import send_email
 from sqlalchemy.sql import func
 
+# app configuration
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost/calculate BMI'
 db = SQLAlchemy(app)
 
+"""
+Define the structure of the data table.
+:Initialize a db table consisting of four columns: email, weight, hight and BMI.
+"""
 class Data(db.Model):
     __tablesname__ = "BMI"
     id = db.Column(db.Integer, primary_key = True)
@@ -21,10 +31,19 @@ class Data(db.Model):
         self.height_ = height_
         self.BMI_ = BMI_
 
+"""
+Render a main web page response.
+:return: Flask response
+"""
 @app.route("/")
 def index():
     return render_template("index.html")
 
+"""
+Render a successweb page response.
+:Functions: calculate BMI and average BMI, send data back to user's email 
+:return: Flask response
+"""
 @app.route("/success", methods = ['POST'])
 def success():
     if request.method == 'POST':

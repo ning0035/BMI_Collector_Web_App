@@ -1,9 +1,13 @@
 from email.mime.text import MIMEText
 import smtplib
 
+"""
+Function for sending email to user
+:Package the message with BMI, number of people and average BMI, send email via smtplib
+"""
 def send_email(email, BMI, average_BMI, count):
-    from_email = "maxiaodong08@gmail.com"
-    from_password = "eternal900513"
+    from_email = "xxx@gmail.com"
+    from_password = "xxx"
     to_email = email
 
     subject = "Your Body Maxx Index"
